@@ -1,0 +1,1239 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "rows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^billing:[a-f0-9]{64}$"
+          },
+          "repository": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._-]{0,99}\\/[a-zA-Z0-9._-]{1,100}$"
+          },
+          "product": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1000
+          },
+          "sku": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1000
+          },
+          "month": {
+            "type": "string",
+            "pattern": "^\\d{4}-(0[1-9]|1[0-2])$"
+          },
+          "currency": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[A-Z]{3}$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "currencyProvenance": {
+            "type": "string",
+            "enum": [
+              "response",
+              "not-supplied"
+            ]
+          },
+          "unit": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1000
+          },
+          "periodStart": {
+            "type": "string"
+          },
+          "periodEnd": {
+            "type": "string"
+          },
+          "bucket": {
+            "type": "string",
+            "enum": [
+              "included",
+              "excluded_by_selection",
+              "unattributed"
+            ]
+          },
+          "selectionStatus": {
+            "type": "string",
+            "enum": [
+              "matched",
+              "unfiltered",
+              "excluded",
+              "unknown",
+              "not-applicable"
+            ]
+          },
+          "quantity": {
+            "type": "string"
+          },
+          "grossAmount": {
+            "type": "string"
+          },
+          "discountAmount": {
+            "type": "string"
+          },
+          "netAmount": {
+            "type": "string"
+          },
+          "pricePerUnit": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "pricePerUnits": {
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "sourceRows": {
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "date": {
+                  "type": "string"
+                },
+                "organizationName": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 1000
+                },
+                "repositoryName": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "quantity": {
+                  "type": "string"
+                },
+                "pricePerUnit": {
+                  "type": "string"
+                },
+                "grossAmount": {
+                  "type": "string"
+                },
+                "discountAmount": {
+                  "type": "string"
+                },
+                "netAmount": {
+                  "type": "string"
+                },
+                "evidenceId": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "observedAt": {
+                  "type": "string"
+                },
+                "sourceIndex": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9007199254740991
+                }
+              },
+              "required": [
+                "date",
+                "organizationName",
+                "repositoryName",
+                "quantity",
+                "pricePerUnit",
+                "grossAmount",
+                "discountAmount",
+                "netAmount",
+                "evidenceId",
+                "observedAt",
+                "sourceIndex"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "sourceRowCount": {
+            "type": "integer",
+            "exclusiveMinimum": 0,
+            "maximum": 9007199254740991
+          },
+          "amountBasis": {
+            "type": "string",
+            "enum": [
+              "observed-accepted",
+              "observed-partial"
+            ]
+          },
+          "activityStatus": {
+            "type": "string",
+            "enum": [
+              "active",
+              "inactive",
+              "unknown"
+            ]
+          },
+          "activityObservation": {
+            "anyOf": [
+              {
+                "type": "object",
+                "propertyNames": {
+                  "type": "string"
+                },
+                "additionalProperties": {
+                  "$ref": "#/$defs/__schema0"
+                }
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "activityReason": {
+            "type": "string",
+            "minLength": 1
+          },
+          "ownership": {
+            "$ref": "#/$defs/__schema0"
+          },
+          "evidenceIds": {
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "diagnosticIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "id",
+          "product",
+          "sku",
+          "month",
+          "currency",
+          "currencyProvenance",
+          "unit",
+          "periodStart",
+          "periodEnd",
+          "bucket",
+          "selectionStatus",
+          "quantity",
+          "grossAmount",
+          "discountAmount",
+          "netAmount",
+          "pricePerUnit",
+          "pricePerUnits",
+          "sourceRows",
+          "sourceRowCount",
+          "amountBasis",
+          "activityStatus",
+          "activityObservation",
+          "activityReason",
+          "ownership",
+          "evidenceIds",
+          "diagnosticIds",
+          "reason"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "totals": {
+      "type": "object",
+      "properties": {
+        "accountingBasis": {
+          "type": "string",
+          "const": "accepted-source-evidence-only"
+        },
+        "providerFinality": {
+          "type": "string",
+          "const": "unknown"
+        },
+        "months": {
+          "minItems": 1,
+          "maxItems": 6,
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^\\d{4}-(0[1-9]|1[0-2])$"
+          }
+        },
+        "allSource": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "month": {
+                "type": "string",
+                "pattern": "^\\d{4}-(0[1-9]|1[0-2])$"
+              },
+              "currency": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "pattern": "^[A-Z]{3}$"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "currencyProvenance": {
+                "type": "string",
+                "enum": [
+                  "response",
+                  "not-supplied"
+                ]
+              },
+              "unit": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 1000
+              },
+              "quantity": {
+                "type": "string"
+              },
+              "grossAmount": {
+                "type": "string"
+              },
+              "discountAmount": {
+                "type": "string"
+              },
+              "netAmount": {
+                "type": "string"
+              },
+              "sourceRowCount": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              },
+              "amountBasis": {
+                "type": "string",
+                "enum": [
+                  "observed-accepted",
+                  "observed-partial"
+                ]
+              }
+            },
+            "required": [
+              "month",
+              "currency",
+              "currencyProvenance",
+              "unit",
+              "quantity",
+              "grossAmount",
+              "discountAmount",
+              "netAmount",
+              "sourceRowCount",
+              "amountBasis"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "included": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "month": {
+                "type": "string",
+                "pattern": "^\\d{4}-(0[1-9]|1[0-2])$"
+              },
+              "currency": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "pattern": "^[A-Z]{3}$"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "currencyProvenance": {
+                "type": "string",
+                "enum": [
+                  "response",
+                  "not-supplied"
+                ]
+              },
+              "unit": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 1000
+              },
+              "quantity": {
+                "type": "string"
+              },
+              "grossAmount": {
+                "type": "string"
+              },
+              "discountAmount": {
+                "type": "string"
+              },
+              "netAmount": {
+                "type": "string"
+              },
+              "sourceRowCount": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              },
+              "amountBasis": {
+                "type": "string",
+                "enum": [
+                  "observed-accepted",
+                  "observed-partial"
+                ]
+              }
+            },
+            "required": [
+              "month",
+              "currency",
+              "currencyProvenance",
+              "unit",
+              "quantity",
+              "grossAmount",
+              "discountAmount",
+              "netAmount",
+              "sourceRowCount",
+              "amountBasis"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "excluded_by_selection": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "month": {
+                "type": "string",
+                "pattern": "^\\d{4}-(0[1-9]|1[0-2])$"
+              },
+              "currency": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "pattern": "^[A-Z]{3}$"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "currencyProvenance": {
+                "type": "string",
+                "enum": [
+                  "response",
+                  "not-supplied"
+                ]
+              },
+              "unit": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 1000
+              },
+              "quantity": {
+                "type": "string"
+              },
+              "grossAmount": {
+                "type": "string"
+              },
+              "discountAmount": {
+                "type": "string"
+              },
+              "netAmount": {
+                "type": "string"
+              },
+              "sourceRowCount": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              },
+              "amountBasis": {
+                "type": "string",
+                "enum": [
+                  "observed-accepted",
+                  "observed-partial"
+                ]
+              }
+            },
+            "required": [
+              "month",
+              "currency",
+              "currencyProvenance",
+              "unit",
+              "quantity",
+              "grossAmount",
+              "discountAmount",
+              "netAmount",
+              "sourceRowCount",
+              "amountBasis"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "unattributed": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "month": {
+                "type": "string",
+                "pattern": "^\\d{4}-(0[1-9]|1[0-2])$"
+              },
+              "currency": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "pattern": "^[A-Z]{3}$"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "currencyProvenance": {
+                "type": "string",
+                "enum": [
+                  "response",
+                  "not-supplied"
+                ]
+              },
+              "unit": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 1000
+              },
+              "quantity": {
+                "type": "string"
+              },
+              "grossAmount": {
+                "type": "string"
+              },
+              "discountAmount": {
+                "type": "string"
+              },
+              "netAmount": {
+                "type": "string"
+              },
+              "sourceRowCount": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              },
+              "amountBasis": {
+                "type": "string",
+                "enum": [
+                  "observed-accepted",
+                  "observed-partial"
+                ]
+              }
+            },
+            "required": [
+              "month",
+              "currency",
+              "currencyProvenance",
+              "unit",
+              "quantity",
+              "grossAmount",
+              "discountAmount",
+              "netAmount",
+              "sourceRowCount",
+              "amountBasis"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "reconciliation": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "month": {
+                "type": "string",
+                "pattern": "^\\d{4}-(0[1-9]|1[0-2])$"
+              },
+              "currency": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "pattern": "^[A-Z]{3}$"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "currencyProvenance": {
+                "type": "string",
+                "enum": [
+                  "response",
+                  "not-supplied"
+                ]
+              },
+              "unit": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 1000
+              },
+              "quantityDelta": {
+                "type": "string",
+                "const": "0"
+              },
+              "grossAmountDelta": {
+                "type": "string",
+                "const": "0"
+              },
+              "discountAmountDelta": {
+                "type": "string",
+                "const": "0"
+              },
+              "netAmountDelta": {
+                "type": "string",
+                "const": "0"
+              }
+            },
+            "required": [
+              "month",
+              "currency",
+              "currencyProvenance",
+              "unit",
+              "quantityDelta",
+              "grossAmountDelta",
+              "discountAmountDelta",
+              "netAmountDelta"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "acceptedSourceRows": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "partitions": {
+          "minItems": 1,
+          "maxItems": 6,
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "month": {
+                "type": "string",
+                "pattern": "^\\d{4}-(0[1-9]|1[0-2])$"
+              },
+              "start": {
+                "type": "string"
+              },
+              "end": {
+                "type": "string"
+              },
+              "completeness": {
+                "type": "string",
+                "enum": [
+                  "complete",
+                  "partial",
+                  "none"
+                ]
+              },
+              "empty": {
+                "type": [
+                  "boolean",
+                  "null"
+                ]
+              },
+              "acceptedRows": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              },
+              "unresolvedRows": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              },
+              "acceptedPages": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              },
+              "unresolvedPages": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              },
+              "evidenceIds": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "diagnosticIds": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "reasonCodes": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            },
+            "required": [
+              "month",
+              "start",
+              "end",
+              "completeness",
+              "empty",
+              "acceptedRows",
+              "unresolvedRows",
+              "acceptedPages",
+              "unresolvedPages",
+              "evidenceIds",
+              "diagnosticIds",
+              "reasonCodes"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "unresolved": {
+          "type": "object",
+          "properties": {
+            "rowCount": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "pageCount": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "partitionCount": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "rows": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "bucket": {
+                    "type": "string",
+                    "const": "unresolved"
+                  },
+                  "month": {
+                    "type": "string",
+                    "pattern": "^\\d{4}-(0[1-9]|1[0-2])$"
+                  },
+                  "repository": {
+                    "type": "string",
+                    "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._-]{0,99}\\/[a-zA-Z0-9._-]{1,100}$"
+                  },
+                  "product": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "sku": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "currency": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "pattern": "^[A-Z]{3}$"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "unit": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "quantity": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "pricePerUnit": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "grossAmount": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "discountAmount": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "netAmount": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "sourceIndex": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991
+                  },
+                  "evidenceId": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "diagnosticId": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "reasonCode": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "invalidFields": {
+                    "minItems": 1,
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "required": [
+                  "bucket",
+                  "month",
+                  "product",
+                  "sku",
+                  "currency",
+                  "unit",
+                  "quantity",
+                  "pricePerUnit",
+                  "grossAmount",
+                  "discountAmount",
+                  "netAmount",
+                  "sourceIndex",
+                  "evidenceId",
+                  "diagnosticId",
+                  "reasonCode",
+                  "invalidFields"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "rowCount",
+            "pageCount",
+            "partitionCount",
+            "rows"
+          ],
+          "additionalProperties": false
+        },
+        "inventory": {
+          "type": "object",
+          "properties": {
+            "requested": {
+              "type": "boolean"
+            },
+            "coverage": {
+              "anyOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "discovery": {
+                      "type": "string",
+                      "enum": [
+                        "api-visible",
+                        "declared-targets",
+                        "not-applicable"
+                      ]
+                    },
+                    "requested": {
+                      "anyOf": [
+                        {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 9007199254740991
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "observed": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 9007199254740991
+                    },
+                    "assessed": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 9007199254740991
+                    },
+                    "pagination": {
+                      "type": "string",
+                      "enum": [
+                        "complete",
+                        "partial",
+                        "not-applicable"
+                      ]
+                    },
+                    "unassessed": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "excluded": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "notes": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "required": [
+                    "discovery",
+                    "requested",
+                    "observed",
+                    "assessed",
+                    "pagination",
+                    "unassessed",
+                    "excluded",
+                    "notes"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "reasonCodes": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "diagnosticIds": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "diagnostics": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "code": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "operation": {
+                    "type": "string",
+                    "enum": [
+                      "identity.user",
+                      "identity.installation",
+                      "repositories.list",
+                      "repositories.get",
+                      "repositories.properties",
+                      "activity.commits",
+                      "activity.issues",
+                      "activity.pull-requests",
+                      "activity.discussions",
+                      "activity.actions",
+                      "billing.usage",
+                      "conformance.runners"
+                    ]
+                  },
+                  "target": {
+                    "type": "string"
+                  },
+                  "status": {
+                    "type": "integer",
+                    "minimum": -9007199254740991,
+                    "maximum": 9007199254740991
+                  },
+                  "requestId": {
+                    "type": "string"
+                  },
+                  "retryable": {
+                    "type": "boolean"
+                  },
+                  "remediation": {
+                    "type": "string"
+                  },
+                  "evidenceId": {
+                    "type": "string"
+                  },
+                  "notBefore": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "id",
+                  "code",
+                  "message",
+                  "retryable",
+                  "remediation"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "requested",
+            "coverage",
+            "reasonCodes",
+            "diagnosticIds",
+            "diagnostics"
+          ],
+          "additionalProperties": false
+        },
+        "selectionUnresolved": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._-]{0,99}\\/[a-zA-Z0-9._-]{1,100}$"
+          }
+        }
+      },
+      "required": [
+        "accountingBasis",
+        "providerFinality",
+        "months",
+        "allSource",
+        "included",
+        "excluded_by_selection",
+        "unattributed",
+        "reconciliation",
+        "acceptedSourceRows",
+        "partitions",
+        "unresolved",
+        "inventory",
+        "selectionUnresolved"
+      ],
+      "additionalProperties": false
+    },
+    "work": {
+      "minItems": 1,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "required": {
+            "type": "boolean"
+          },
+          "outcome": {
+            "type": "string",
+            "enum": [
+              "valid",
+              "failed",
+              "unassessed",
+              "policy-excluded",
+              "waiting",
+              "cancelled"
+            ]
+          },
+          "reasonCode": {
+            "type": "string"
+          },
+          "evidenceIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "required",
+          "outcome",
+          "evidenceIds"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "coverage": {
+      "type": "object",
+      "properties": {
+        "discovery": {
+          "type": "string",
+          "enum": [
+            "api-visible",
+            "declared-targets",
+            "not-applicable"
+          ]
+        },
+        "requested": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "observed": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "assessed": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "pagination": {
+          "type": "string",
+          "enum": [
+            "complete",
+            "partial",
+            "not-applicable"
+          ]
+        },
+        "unassessed": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "excluded": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "notes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "discovery",
+        "requested",
+        "observed",
+        "assessed",
+        "pagination",
+        "unassessed",
+        "excluded",
+        "notes"
+      ],
+      "additionalProperties": false
+    },
+    "limitations": {
+      "minItems": 1,
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  },
+  "required": [
+    "rows",
+    "totals",
+    "work",
+    "coverage",
+    "limitations"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "__schema0": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        },
+        {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/__schema0"
+          }
+        },
+        {
+          "type": "object",
+          "propertyNames": {
+            "type": "string"
+          },
+          "additionalProperties": {
+            "$ref": "#/$defs/__schema0"
+          }
+        }
+      ]
+    }
+  }
+}

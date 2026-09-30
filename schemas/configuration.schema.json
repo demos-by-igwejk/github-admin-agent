@@ -1,0 +1,304 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "default": "1",
+      "type": "string",
+      "const": "1"
+    },
+    "host": {
+      "default": "github.com",
+      "type": "string",
+      "const": "github.com"
+    },
+    "org": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._-]{0,99}$"
+    },
+    "credential": {
+      "default": {
+        "name": "restricted-reader",
+        "credentialClass": "none",
+        "source": "gh-cli"
+      },
+      "type": "object",
+      "properties": {
+        "name": {
+          "default": "restricted-reader",
+          "type": "string",
+          "enum": [
+            "restricted-reader",
+            "operator-assisted-local"
+          ]
+        },
+        "credentialClass": {
+          "default": "none",
+          "type": "string",
+          "enum": [
+            "oauth",
+            "classic-pat",
+            "fine-grained-pat",
+            "app-installation",
+            "app-user",
+            "none"
+          ]
+        },
+        "source": {
+          "default": "gh-cli",
+          "type": "string",
+          "const": "gh-cli"
+        },
+        "declaredPrincipal": {
+          "type": "string",
+          "maxLength": 200
+        }
+      },
+      "required": [
+        "name",
+        "credentialClass",
+        "source"
+      ],
+      "additionalProperties": false
+    },
+    "selection": {
+      "default": {
+        "repositories": [],
+        "properties": {}
+      },
+      "type": "object",
+      "properties": {
+        "mode": {
+          "type": "string",
+          "enum": [
+            "api-visible",
+            "declared-targets"
+          ]
+        },
+        "repositories": {
+          "default": [],
+          "maxItems": 10000,
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._-]{0,99}\\/[a-zA-Z0-9._-]{1,100}$"
+          }
+        },
+        "properties": {
+          "default": {},
+          "type": "object",
+          "propertyNames": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "additionalProperties": {
+            "type": "string",
+            "maxLength": 1000
+          }
+        },
+        "maxAssessments": {
+          "type": "integer",
+          "exclusiveMinimum": 0,
+          "maximum": 100000
+        }
+      },
+      "required": [
+        "repositories",
+        "properties"
+      ],
+      "additionalProperties": false
+    },
+    "activity": {
+      "default": {
+        "name": "recent-activity",
+        "window": {
+          "kind": "calendar-months",
+          "value": 6
+        },
+        "signals": [
+          "push"
+        ],
+        "positiveShortCircuit": true,
+        "clockSkewSeconds": 60
+      },
+      "type": "object",
+      "properties": {
+        "name": {
+          "default": "recent-activity",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "window": {
+          "default": {
+            "kind": "calendar-months",
+            "value": 6
+          },
+          "oneOf": [
+            {
+              "type": "object",
+              "properties": {
+                "kind": {
+                  "type": "string",
+                  "const": "days"
+                },
+                "value": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 3660
+                }
+              },
+              "required": [
+                "kind",
+                "value"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "kind": {
+                  "type": "string",
+                  "const": "calendar-months"
+                },
+                "value": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 120
+                }
+              },
+              "required": [
+                "kind",
+                "value"
+              ],
+              "additionalProperties": false
+            }
+          ]
+        },
+        "signals": {
+          "default": [
+            "push"
+          ],
+          "minItems": 1,
+          "maxItems": 6,
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "push",
+              "commits",
+              "issues",
+              "pull_requests",
+              "discussions",
+              "actions"
+            ]
+          }
+        },
+        "positiveShortCircuit": {
+          "default": true,
+          "type": "boolean"
+        },
+        "clockSkewSeconds": {
+          "default": 60,
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 300
+        }
+      },
+      "required": [
+        "name",
+        "window",
+        "signals",
+        "positiveShortCircuit",
+        "clockSkewSeconds"
+      ],
+      "additionalProperties": false
+    },
+    "budgets": {
+      "default": {
+        "maxAttempts": 1000,
+        "maxElapsedMs": 900000,
+        "requestTimeoutMs": 30000,
+        "maxAttemptsPerRequest": 3,
+        "concurrency": 2
+      },
+      "type": "object",
+      "properties": {
+        "maxAttempts": {
+          "default": 1000,
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100000
+        },
+        "maxElapsedMs": {
+          "default": 900000,
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 86400000
+        },
+        "requestTimeoutMs": {
+          "default": 30000,
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 300000
+        },
+        "maxAttemptsPerRequest": {
+          "default": 3,
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10
+        },
+        "concurrency": {
+          "default": 2,
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10
+        }
+      },
+      "required": [
+        "maxAttempts",
+        "maxElapsedMs",
+        "requestTimeoutMs",
+        "maxAttemptsPerRequest",
+        "concurrency"
+      ],
+      "additionalProperties": false
+    },
+    "policyPath": {
+      "default": "config/policies/repositories.json",
+      "type": "string",
+      "minLength": 1
+    },
+    "ownersPath": {
+      "default": "config/owners.csv",
+      "type": "string",
+      "minLength": 1
+    },
+    "reportsPath": {
+      "default": "reports",
+      "type": "string",
+      "minLength": 1
+    },
+    "retentionDays": {
+      "default": 30,
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 3650
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "host",
+    "org",
+    "credential",
+    "selection",
+    "activity",
+    "budgets",
+    "policyPath",
+    "ownersPath",
+    "reportsPath",
+    "retentionDays"
+  ],
+  "additionalProperties": false
+}

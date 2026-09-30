@@ -1,0 +1,35 @@
+{
+    "schemaVersion": "1",
+    "host": "github.com",
+    "org": "example-org",
+    "credential": {
+        "name": "restricted-reader",
+        "credentialClass": "none",
+        "source": "gh-cli"
+    },
+    "selection": {
+        "repositories": [],
+        "properties": {}
+    },
+    "activity": {
+        "name": "six-calendar-month-push-policy",
+        "window": {
+            "kind": "calendar-months",
+            "value": 6
+        },
+        "signals": ["push"],
+        "positiveShortCircuit": true,
+        "clockSkewSeconds": 60
+    },
+    "budgets": {
+        "maxAttempts": 1000,
+        "maxElapsedMs": 900000,
+        "requestTimeoutMs": 30000,
+        "maxAttemptsPerRequest": 3,
+        "concurrency": 2
+    },
+    "policyPath": "config/policies/repositories.json",
+    "ownersPath": "config/owners.csv",
+    "reportsPath": "reports",
+    "retentionDays": 30
+}

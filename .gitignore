@@ -1,0 +1,15 @@
+node_modules/
+dist/
+.test-dist/
+.test-tmp/
+.build/
+reports/
+.admin-state/
+config/admin-agent.json
+config/policies/repositories.json
+config/owners.csv
+.env
+.env.*
+*.tgz
+*.log
+.DS_Store

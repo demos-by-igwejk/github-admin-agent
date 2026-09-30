@@ -1,0 +1,26 @@
+{
+    "schemaVersion": "1",
+    "name": "synthetic-repository-baseline",
+    "rules": [
+        {
+            "id": "private-visibility",
+            "setting": "visibility",
+            "expected": "private"
+        },
+        {
+            "id": "default-branch",
+            "setting": "default_branch",
+            "expected": "main"
+        },
+        {
+            "id": "squash-merges",
+            "setting": "allow_squash_merge",
+            "expected": true
+        },
+        {
+            "id": "delete-merged-branches",
+            "setting": "delete_branch_on_merge",
+            "expected": true
+        }
+    ]
+}

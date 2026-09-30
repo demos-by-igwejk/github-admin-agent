@@ -1,0 +1,12 @@
+reports/
+.admin-state/
+dist/
+.test-dist/
+.test-tmp/
+.build/
+node_modules/
+config/admin-agent.json
+config/policies/repositories.json
+config/owners.csv
+.env*
+*.log
